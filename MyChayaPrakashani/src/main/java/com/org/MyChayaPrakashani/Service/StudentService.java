@@ -28,7 +28,7 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 	
-	@Autowired
+	@Autowired 
 	CourseRepository courseRepository;
 	
 	public Page<StudentDetailsDTO> getAllStudent(int pageNo,int pageSize,String sortBy)	{
