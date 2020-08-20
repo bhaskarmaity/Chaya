@@ -29,7 +29,7 @@ public class GlobalController {
 	StudentService studentService;
 	@Autowired 
 	CourseService courseService;
-	
+	  
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/registerstudent")
 	public String addStudent(@Valid @RequestBody Student student) throws NonUniqueResultException {
