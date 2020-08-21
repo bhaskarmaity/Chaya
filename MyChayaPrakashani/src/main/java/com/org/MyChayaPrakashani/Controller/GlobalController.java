@@ -36,9 +36,9 @@ public class GlobalController {
 		return studentService.saveStudent(student);
 	}  
 	
-	@GetMapping("/students")
+ 	@GetMapping("/students")
 	public List<StudentDetailsDTO>  getAllStudents(@RequestParam(defaultValue="0") Integer pageNo,
-			@RequestParam(defaultValue="1") Integer pageSize,
+			@RequestParam(defaultValue="10") Integer pageSize,
 			@RequestParam(defaultValue="id") String sortBy) {
 		
 		Page<StudentDetailsDTO> listOfStudents=studentService.getAllStudent(pageNo,pageSize,sortBy);
@@ -48,9 +48,9 @@ public class GlobalController {
 	}
 			
 	@ResponseStatus(HttpStatus.FOUND)
-	@GetMapping("courses")
+	@GetMapping("/courses")
 	public List<Course> getAllCourses(@RequestParam(defaultValue="0")Integer pageNo,
-			@RequestParam(defaultValue="1")Integer pageSize,
+			@RequestParam(defaultValue="10")Integer pageSize,
 			@RequestParam(defaultValue="courseId")String sortBy)	{
 		return courseService.getAllCourse(pageNo,pageSize,sortBy).getContent();
 	} 
@@ -70,7 +70,7 @@ public class GlobalController {
 	}
 	
 	@ResponseStatus(HttpStatus.FOUND)
-	@GetMapping("course/countbyid/{id}")
+	@GetMapping("/course/countbyid/{id}")
 	public CountStudentsInCourse countCourseStudentById(@PathVariable int id)	{
 		Course c=courseService.getCourseById(id);
 		if(c==null)

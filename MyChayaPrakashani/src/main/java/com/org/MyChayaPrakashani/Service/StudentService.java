@@ -37,7 +37,6 @@ public class StudentService {
 			sortProperties.add("id");sortProperties.add("studentName");
 			sortProperties.add("email");sortProperties.add("mobile");
 			
-		System.out.println("Page No. : "+pageNo+" Page size : "+pageSize+" Sorting : "+sortBy);
 		if(!sortProperties.contains(sortBy))
 			throw new IllegalSortingValueException(sortBy+" is not a valid option for sorting");
 		
