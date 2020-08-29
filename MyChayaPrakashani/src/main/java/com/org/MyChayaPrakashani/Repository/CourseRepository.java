@@ -18,9 +18,14 @@ public interface CourseRepository extends JpaRepository<Course, Integer>,PagingA
 	boolean existsBycourseName(String name);
 	Page<Course> findAll(Pageable pg);
 	
+//	@Query("select new com.org.MyChayaPrakashani.DTO.CountStudentsInCourse(c.courseName, COUNT(s.id))"+
+//			" FROM Student s JOIN s.courses c"+
+//			" where c.courseName =?1"+   
+//			" GROUP BY c.courseName order by c.courseName")
+	
 	@Query("select new com.org.MyChayaPrakashani.DTO.CountStudentsInCourse(c.courseName, COUNT(s.id))"+
 			" FROM Student s JOIN s.courses c"+
 			" where c.courseName =?1"+   
-			" GROUP BY c.courseName order by c.courseName")
+			" GROUP BY c.courseName")	
 	CountStudentsInCourse countStudentByCourse(String courseName);
 	}

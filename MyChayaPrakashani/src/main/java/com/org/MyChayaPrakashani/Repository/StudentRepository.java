@@ -16,15 +16,8 @@ import com.org.MyChayaPrakashani.Entity.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer>,PagingAndSortingRepository<Student,Integer> {
-	Optional<Student> findBystudentName(String name);
 	Optional<Student> findByemail(String email);
 	boolean existsBymobile(String mobile);
 	boolean existsByemail(String email);
 	Page<Student> findAll(Pageable pg);
-
-	
-//	@Query("select new com.org.MyChayaPrakashani.DTO.StudentDetailsDTO(s.id,s.studentName,"
-//			+ "s.email,s.mobile,c.courseName) from Student s join s.courses c")
-//	Page<StudentDetailsDTO> findAllStudents(Pageable pg);
-	List<Student> findAll();
 }

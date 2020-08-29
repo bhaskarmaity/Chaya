@@ -17,5 +17,4 @@ public class StudentDetailsDTO {
 	private String studentName;
 	private String email;
 	private List<String> courseName=new ArrayList<>();
-	
 }

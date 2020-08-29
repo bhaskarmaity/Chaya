@@ -47,17 +47,6 @@ public class GlobalController {
 		return listOfStudents;
 	}
 	
-//	@GetMapping("/students")
-//	public List<Student>  getAllStudents(@RequestParam(defaultValue="0") Integer pageNo,
-//			@RequestParam(defaultValue="10") Integer pageSize,
-//			@RequestParam(defaultValue="id") String sortBy) {
-//		
-//		List<Student> listOfStudents=studentService.getAllStudent(pageNo,pageSize,sortBy);
-//		if(listOfStudents==null)
-//			throw new ResourceNotFoundException("No student present at this time..");
-//		return listOfStudents;
-//	}
-		
 	@ResponseStatus(HttpStatus.FOUND)
 	@GetMapping("/courses")
 	public List<Course> getAllCourses(@RequestParam(defaultValue="0")Integer pageNo,
