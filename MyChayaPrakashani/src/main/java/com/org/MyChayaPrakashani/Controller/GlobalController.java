@@ -35,18 +35,29 @@ public class GlobalController {
 	public String addStudent(@Valid @RequestBody Student student) throws NonUniqueResultException {
 		return studentService.saveStudent(student);
 	}  
-	
- 	@GetMapping("/students")
+
+	@GetMapping("/students")
 	public List<StudentDetailsDTO>  getAllStudents(@RequestParam(defaultValue="0") Integer pageNo,
 			@RequestParam(defaultValue="10") Integer pageSize,
 			@RequestParam(defaultValue="id") String sortBy) {
 		
-		Page<StudentDetailsDTO> listOfStudents=studentService.getAllStudent(pageNo,pageSize,sortBy);
+		List<StudentDetailsDTO> listOfStudents=studentService.getAllStudent(pageNo,pageSize,sortBy);
 		if(listOfStudents==null)
 			throw new ResourceNotFoundException("No student present at this time..");
-		return listOfStudents.getContent() ;
+		return listOfStudents;
 	}
-			
+	
+//	@GetMapping("/students")
+//	public List<Student>  getAllStudents(@RequestParam(defaultValue="0") Integer pageNo,
+//			@RequestParam(defaultValue="10") Integer pageSize,
+//			@RequestParam(defaultValue="id") String sortBy) {
+//		
+//		List<Student> listOfStudents=studentService.getAllStudent(pageNo,pageSize,sortBy);
+//		if(listOfStudents==null)
+//			throw new ResourceNotFoundException("No student present at this time..");
+//		return listOfStudents;
+//	}
+		
 	@ResponseStatus(HttpStatus.FOUND)
 	@GetMapping("/courses")
 	public List<Course> getAllCourses(@RequestParam(defaultValue="0")Integer pageNo,
@@ -56,7 +67,7 @@ public class GlobalController {
 	} 
 	
 	@ResponseStatus(HttpStatus.FOUND)
-	@GetMapping("course/{id}")
+	@GetMapping("/course/{id}")
 	public Course getCourseDetailsById(@PathVariable int id){
 		Course course=courseService.getCourseById(id);
 		return course;	
@@ -79,7 +90,7 @@ public class GlobalController {
 	}
 	
 	@ResponseStatus(HttpStatus.FOUND)
-	@GetMapping("course/countbycoursename/{courseName}")
+	@GetMapping("/course/countbycoursename/{courseName}")
 	public CountStudentsInCourse countCourseStudentByCourseName(@PathVariable String courseName)	{
 		Course c=courseService.getCourseByName(courseName);
 		if(c==null)

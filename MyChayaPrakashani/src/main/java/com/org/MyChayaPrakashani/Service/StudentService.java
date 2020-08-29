@@ -1,9 +1,12 @@
 package com.org.MyChayaPrakashani.Service;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +34,40 @@ public class StudentService {
 	@Autowired 
 	CourseRepository courseRepository;
 	
-	public Page<StudentDetailsDTO> getAllStudent(int pageNo,int pageSize,String sortBy)	{
+//	public List<Student> getAllStudent(int pageNo,int pageSize,String sortBy)	{
+//		
+//		 List<String>sortProperties=new ArrayList<String>();
+//			sortProperties.add("id");sortProperties.add("studentName");
+//			sortProperties.add("email");sortProperties.add("mobile");
+//			
+//		if(!sortProperties.contains(sortBy))
+//			throw new IllegalSortingValueException(sortBy+" is not a valid option for sorting");
+//		
+//		if(pageSize<1 && pageNo<0)
+//			throw new PagingException(pageNo+","+pageSize+" is not a valid number for page number and page size");
+//		if(pageSize<1)
+//			throw new PagingException(pageSize+" is not a valid number for page size");
+//		if(pageNo<0)
+//			throw new PagingException(pageNo+" is not a valid number for page Number");
+//		Pageable paging=PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+//
+//		 return studentRepository.findAll(paging).getContent();
+//	}
+	
+
+	
+		
+	private StudentDetailsDTO  convertToUserDetailsDTO(Student student)
+	{
+		StudentDetailsDTO std=new StudentDetailsDTO();
+		std.setStudentName(student.getStudentName());
+		std.setId(student.getId());
+		std.setEmail(student.getEmail());
+		student.getCourses().forEach((n) -> std.getCourseName().add(n.getCourseName()));
+		return std;
+	}
+	
+	public List<StudentDetailsDTO> getAllStudent(int pageNo,int pageSize,String sortBy)	{
 		
 		 List<String>sortProperties=new ArrayList<String>();
 			sortProperties.add("id");sortProperties.add("studentName");
@@ -47,8 +83,15 @@ public class StudentService {
 		if(pageNo<0)
 			throw new PagingException(pageNo+" is not a valid number for page Number");
 		Pageable paging=PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-		return studentRepository.findAllStudents(paging);
+
+		 return ((List<Student>) studentRepository
+	                .findAll(paging).getContent()).stream()
+	                .map(this::convertToUserDetailsDTO)
+					        .collect(Collectors.toList());
 	}
+	
+	
+	
 	
 	
 	public String saveStudent(Student student)	{

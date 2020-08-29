@@ -13,13 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentDetailsDTO {
-	
-	private Integer id;
+	private int id;
 	private String studentName;
 	private String email;
-	private String mobile;
-	private String courseName;
-	//private List<Course> courseName=new ArrayList<>();
-	//private Course courseName;
-	//private List<String> courseName=new ArrayList<>();
+	private List<String> courseName=new ArrayList<>();
+	
 }
